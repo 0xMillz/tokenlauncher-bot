@@ -28,7 +28,8 @@ class TokenLauncherClient:
         base_url: str = BASE_URL,
         timeout: float = 30.0,
     ):
-        self.api_key = api_key or os.environ.get("TOKEN_LAUNCHER_API_KEY")
+        raw = api_key or os.environ.get("TOKEN_LAUNCHER_API_KEY")
+        self.api_key = (raw or "").strip() or None
         self.base_url = base_url.rstrip("/")
         self.timeout = timeout
 

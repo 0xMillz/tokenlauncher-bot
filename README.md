@@ -60,8 +60,11 @@ python main.py boost-holders 0xYourTokenAddress
 
 ### Withdraw
 
+Requires `--from-address` (the internal wallet to withdraw from). Use `internal-wallets` to list addresses:
+
 ```bash
-python main.py withdraw 0xYourTokenAddress
+python main.py internal-wallets 0xYourTokenAddress
+python main.py withdraw 0xYourTokenAddress --from-address 0xInternalWalletAddress
 ```
 
 ### Read-only queries

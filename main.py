@@ -60,6 +60,12 @@ def main() -> int:
     # withdraw
     withdraw_parser = subparsers.add_parser("withdraw", help="Withdraw tokens from internal wallet")
     withdraw_parser.add_argument("token_address", help="Token contract address")
+    withdraw_parser.add_argument(
+        "--from-address",
+        "-f",
+        required=True,
+        help="Internal wallet address to withdraw from (use internal-wallets to list)",
+    )
     withdraw_parser.add_argument("--extra", type=json.loads, help='Extra params as JSON')
 
     # token-info
@@ -107,7 +113,9 @@ def main() -> int:
         elif args.command == "boost-holders":
             result = bot.boost_holders(args.token_address, **(args.extra or {}))
         elif args.command == "withdraw":
-            result = bot.withdraw(args.token_address, **(args.extra or {}))
+            extra = args.extra or {}
+            extra["fromAddress"] = args.from_address
+            result = bot.withdraw(args.token_address, **extra)
         elif args.command == "token-info":
             result = bot.token_info(args.token_address)
         elif args.command == "internal-wallets":
