@@ -60,11 +60,17 @@ python main.py boost-holders 0xYourTokenAddress
 
 ### Withdraw
 
-Requires `--from-address` (the internal wallet to withdraw from). Use `internal-wallets` to list addresses:
+If you have exactly one internal wallet, `--from-address` is optional (auto-fetched). With multiple wallets, use `--from-address` or `--all`:
 
 ```bash
-python main.py internal-wallets 0xYourTokenAddress
-python main.py withdraw 0xYourTokenAddress --from-address 0xInternalWalletAddress
+python main.py withdraw 0xYourTokenAddress
+# Withdraw from a specific wallet:
+python main.py withdraw 0xYourTokenAddress -f 0xInternalWalletAddress
+# Withdraw from all internal wallets (stops on rate limit):
+python main.py withdraw 0xYourTokenAddress --all
+
+# Cap at 10 withdrawals per run (API limit is 10/day):
+python main.py withdraw 0xYourTokenAddress --all --limit 10
 ```
 
 ### Read-only queries
